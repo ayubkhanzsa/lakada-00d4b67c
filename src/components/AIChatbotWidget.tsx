@@ -9,7 +9,8 @@ import { useToast } from './ui/use-toast';
 
 import chatLogo from '../assets/chat-logo.png';
 import botIcon from '../assets/bot-icon.png';
-import miraIcon from '../assets/mira-icon.gif';
+import miraAsset from '../assets/mira-icon.gif.asset.json';
+const miraIcon = miraAsset.url;
 import miraProfile from '../assets/mira-profile.jpeg';
 
 interface Message {
