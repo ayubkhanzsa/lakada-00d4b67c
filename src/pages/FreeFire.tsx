@@ -128,13 +128,20 @@ const FreeFire = ({ onLogout, disableSeo = false }: FreeFireProps) => {
       setBannersLoaded(true);
     };
     
-    const updateBannersFromData = (data: any[]) => {
+    const updateBannersFromData = async (data: any[]) => {
       const mobileBannerData = data.find((b: any) => b.banner_key === 'freefire_mobile');
       const desktopBannerData = data.find((b: any) => b.banner_key === 'freefire_desktop');
       const charactersData = data.find((b: any) => b.banner_key === 'freefire_characters');
       
-      if (mobileBannerData?.image_url) {
-        setMobileBanner(mobileBannerData.image_url);
+      const { resolveStorageUrl } = await import('@/lib/storageUrl');
+      const [mobileUrl, desktopUrl, charactersUrl] = await Promise.all([
+        resolveStorageUrl(mobileBannerData?.image_url),
+        resolveStorageUrl(desktopBannerData?.image_url),
+        resolveStorageUrl(charactersData?.image_url),
+      ]);
+
+      if (mobileBannerData?.image_url && mobileUrl) {
+        setMobileBanner(mobileUrl);
         setMobileBannerStyle({
           x: mobileBannerData.position_x || 0,
           y: mobileBannerData.position_y || 0,
@@ -147,16 +154,16 @@ const FreeFire = ({ onLogout, disableSeo = false }: FreeFireProps) => {
           spread: mobileBannerData.light_spread ?? 70
         });
       }
-      if (desktopBannerData?.image_url) {
-        setDesktopBanner(desktopBannerData.image_url);
+      if (desktopBannerData?.image_url && desktopUrl) {
+        setDesktopBanner(desktopUrl);
         setDesktopBannerStyle({
           x: desktopBannerData.position_x || 0,
           y: desktopBannerData.position_y || 0,
           zoom: desktopBannerData.zoom_level || 100
         });
       }
-      if (charactersData?.image_url) {
-        setCharactersImage(charactersData.image_url);
+      if (charactersData?.image_url && charactersUrl) {
+        setCharactersImage(charactersUrl);
         setCharactersStyle({
           x: charactersData.position_x || 0,
           y: charactersData.position_y || 0,

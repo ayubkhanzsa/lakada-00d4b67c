@@ -48,10 +48,11 @@ export default function PaymentGatewaysManagement() {
       toast({ variant: 'destructive', title: 'Upload failed', description: upErr.message });
       return;
     }
-    const { data } = supabase.storage.from('site-assets').getPublicUrl(fileName);
+    const { data: signed } = await supabase.storage.from('site-assets').createSignedUrl(fileName, 60*60*24*365*10);
+    const logoUrl = signed?.signedUrl;
     const { error: updErr } = await supabase
       .from('payment_gateways')
-      .update({ logo_url: data.publicUrl })
+      .update({ logo_url: logoUrl })
       .eq('id', g.id);
     setUploadingId(null);
     if (updErr) {

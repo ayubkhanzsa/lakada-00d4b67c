@@ -73,7 +73,7 @@ CRITICAL RULES:
 3. Answer exactly what's asked - don't overwhelm with info
 
 ABOUT MIDASBUY:
-- Website: https://midasbuy.com.co
+- Website: https://www.midasbuy.lombuy.com
 - Pakistan's most trusted gaming top-up platform
 - 100% secure with encrypted payments
 - Instant delivery (usually within minutes, max 30 mins)
@@ -82,7 +82,7 @@ ABOUT MIDASBUY:
 
 CONTACT INFO (IMPORTANT - USE THESE EXACT NUMBERS):
 📱 WhatsApp: +44 7476 966269 (24/7 fastest support)
-📧 Email: help@midasbuy.com.co
+📧 Email: help@midasbuy.lombuy.com
 
 AVAILABLE GAMES & PRODUCTS:
 1. PUBG Mobile UC - Direct top-up to your account
@@ -127,7 +127,7 @@ PAYMENT METHODS:
 
 REFUND POLICY:
 - Refund available within 24 hours if UC/Diamonds not delivered
-- Email help@midasbuy.com.co with order ID & payment proof
+- Email help@midasbuy.lombuy.com with order ID & payment proof
 - Processing time: 7-14 working days
 - No refunds after successful delivery or wrong Player ID
 

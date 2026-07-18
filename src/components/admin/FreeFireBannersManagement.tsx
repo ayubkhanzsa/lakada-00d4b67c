@@ -79,11 +79,14 @@ export default function FreeFireBannersManagement() {
       return null;
     }
 
-    const { data: { publicUrl } } = supabase.storage
+    const { data: signed, error: signErr } = await supabase.storage
       .from('site-assets')
-      .getPublicUrl(fileName);
-
-    return publicUrl;
+      .createSignedUrl(fileName, 60*60*24*365*10);
+    if (signErr || !signed?.signedUrl) {
+      toast({ variant: 'destructive', title: 'Upload failed', description: signErr?.message || 'Could not sign URL' });
+      return null;
+    }
+    return signed.signedUrl;
   };
 
   const handleFileUpload = async (bannerKey: string, file: File) => {
