@@ -162,6 +162,19 @@ const MidasCheckoutModal: React.FC<MidasCheckoutModalProps> = ({
   // Payment states
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Detect admin (for admin-only Test Gateway)
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { if (mounted) setIsAdmin(false); return; }
+      const { data } = await supabase.rpc('has_role', { _user_id: user.id, _role: 'admin' as any });
+      if (mounted) setIsAdmin(!!data);
+    })();
+    return () => { mounted = false; };
+  }, [open, isLoggedIn]);
   const [isPaymentLoading, setIsPaymentLoading] = useState(false);
   const [showCryptoPayment, setShowCryptoPayment] = useState(false);
   
