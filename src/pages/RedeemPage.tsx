@@ -86,15 +86,16 @@ const RedeemPage = ({ onLogout }: RedeemPageProps) => {
 
     const trimmedCode = codeNumber.trim();
     
-    // Detect non-coupon inputs: emails, URLs, names, etc.
+    // Detect non-coupon inputs: emails, URLs, names, whitespace inside, etc.
     const looksLikeEmail = /[@]/.test(trimmedCode);
     const looksLikeUrl = /^(https?:\/\/|www\.)|(\.(com|net|org|io|pk|co|dev|info|xyz))/i.test(trimmedCode);
     const looksLikeName = /^[a-zA-Z\s]{2,}$/.test(trimmedCode) && !/\d/.test(trimmedCode);
     const isOnlyDigits = /^\d+$/.test(trimmedCode);
-    const isNonCoupon = looksLikeEmail || looksLikeUrl || looksLikeName || isOnlyDigits;
-    
-    // Valid codes are 18-20 characters
-    const isValidLength = trimmedCode.length >= 18 && trimmedCode.length <= 20 && !isNonCoupon;
+    const hasWhitespace = /\s/.test(trimmedCode); // interior space => invalid
+    const isNonCoupon = looksLikeEmail || looksLikeUrl || looksLikeName || isOnlyDigits || hasWhitespace;
+
+    // Valid codes are 18-24 characters
+    const isValidLength = trimmedCode.length >= 18 && trimmedCode.length <= 24 && !isNonCoupon;
 
     // Check rate limit before submission (for logged in users)
     if (user) {
