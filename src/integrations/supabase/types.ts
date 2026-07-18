@@ -188,6 +188,7 @@ export type Database = {
           metadata: Json | null
           role: string | null
           session_id: string | null
+          updated_at: string | null
           user_id: string | null
         }
         Insert: {
@@ -198,6 +199,7 @@ export type Database = {
           metadata?: Json | null
           role?: string | null
           session_id?: string | null
+          updated_at?: string | null
           user_id?: string | null
         }
         Update: {
@@ -208,6 +210,7 @@ export type Database = {
           metadata?: Json | null
           role?: string | null
           session_id?: string | null
+          updated_at?: string | null
           user_id?: string | null
         }
         Relationships: []
@@ -385,7 +388,7 @@ export type Database = {
           body: string | null
           created_at: string
           customer_email: string | null
-          email_to: string
+          email_to: string | null
           error_message: string | null
           id: string
           inquiry_id: string | null
@@ -398,7 +401,7 @@ export type Database = {
           body?: string | null
           created_at?: string
           customer_email?: string | null
-          email_to: string
+          email_to?: string | null
           error_message?: string | null
           id?: string
           inquiry_id?: string | null
@@ -411,7 +414,7 @@ export type Database = {
           body?: string | null
           created_at?: string
           customer_email?: string | null
-          email_to?: string
+          email_to?: string | null
           error_message?: string | null
           id?: string
           inquiry_id?: string | null
