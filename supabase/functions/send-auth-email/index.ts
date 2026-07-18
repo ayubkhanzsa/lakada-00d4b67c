@@ -193,7 +193,7 @@ const handler = async (req: Request): Promise<Response> => {
     const html = getEmailWrapper(content);
 
     const emailResponse = await resend.emails.send({
-      from: "Midasbuy <midassbuy@outlook.com>",
+      from: "Midasbuy <no-reply@midasbuy.com.pk>",
       to: [to],
       subject,
       html,

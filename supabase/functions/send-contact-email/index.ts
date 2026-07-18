@@ -76,7 +76,7 @@ const handler = async (req: Request): Promise<Response> => {
     const safeMessage = escapeHtml(message);
 
     const emailResponse = await resend.emails.send({
-      from: "Midasbuy Contact <onboarding@resend.dev>",
+      from: "Midasbuy Contact <no-reply@midasbuy.com.pk>",
       to: ["MidasbuyHelpline@Gmail.com"],
       subject: `Contact Form: ${safeSubject}`,
       html: `
