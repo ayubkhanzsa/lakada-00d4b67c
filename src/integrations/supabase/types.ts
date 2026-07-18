@@ -181,29 +181,32 @@ export type Database = {
       }
       chat_history: {
         Row: {
-          content: string
+          content: string | null
           created_at: string
           id: string
+          messages: Json | null
           metadata: Json | null
-          role: string
+          role: string | null
           session_id: string | null
           user_id: string | null
         }
         Insert: {
-          content: string
+          content?: string | null
           created_at?: string
           id?: string
+          messages?: Json | null
           metadata?: Json | null
-          role: string
+          role?: string | null
           session_id?: string | null
           user_id?: string | null
         }
         Update: {
-          content?: string
+          content?: string | null
           created_at?: string
           id?: string
+          messages?: Json | null
           metadata?: Json | null
-          role?: string
+          role?: string | null
           session_id?: string | null
           user_id?: string | null
         }
@@ -242,6 +245,7 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          is_read: boolean
           message: string
           name: string
           phone: string | null
@@ -255,6 +259,7 @@ export type Database = {
           created_at?: string
           email: string
           id?: string
+          is_read?: boolean
           message: string
           name: string
           phone?: string | null
@@ -268,6 +273,7 @@ export type Database = {
           created_at?: string
           email?: string
           id?: string
+          is_read?: boolean
           message?: string
           name?: string
           phone?: string | null
@@ -281,11 +287,17 @@ export type Database = {
       customer_inquiries_archive: {
         Row: {
           admin_notes: string | null
+          archived_at: string | null
+          archived_by: string | null
           created_at: string
           email: string
           id: string
+          is_read: boolean | null
           message: string
           name: string
+          original_created_at: string | null
+          original_id: string | null
+          original_updated_at: string | null
           phone: string | null
           status: string
           subject: string | null
@@ -294,11 +306,17 @@ export type Database = {
         }
         Insert: {
           admin_notes?: string | null
+          archived_at?: string | null
+          archived_by?: string | null
           created_at?: string
           email: string
           id?: string
+          is_read?: boolean | null
           message: string
           name: string
+          original_created_at?: string | null
+          original_id?: string | null
+          original_updated_at?: string | null
           phone?: string | null
           status?: string
           subject?: string | null
@@ -307,11 +325,17 @@ export type Database = {
         }
         Update: {
           admin_notes?: string | null
+          archived_at?: string | null
+          archived_by?: string | null
           created_at?: string
           email?: string
           id?: string
+          is_read?: boolean | null
           message?: string
           name?: string
+          original_created_at?: string | null
+          original_id?: string | null
+          original_updated_at?: string | null
           phone?: string | null
           status?: string
           subject?: string | null
@@ -360,6 +384,7 @@ export type Database = {
         Row: {
           body: string | null
           created_at: string
+          customer_email: string | null
           email_to: string
           error_message: string | null
           id: string
@@ -370,6 +395,7 @@ export type Database = {
         Insert: {
           body?: string | null
           created_at?: string
+          customer_email?: string | null
           email_to: string
           error_message?: string | null
           id?: string
@@ -380,6 +406,7 @@ export type Database = {
         Update: {
           body?: string | null
           created_at?: string
+          customer_email?: string | null
           email_to?: string
           error_message?: string | null
           id?: string
@@ -519,12 +546,21 @@ export type Database = {
       orders_archive: {
         Row: {
           amount: number
+          archived_at: string | null
+          archived_by: string | null
           created_at: string
+          currency_code: string | null
           id: string
+          original_created_at: string | null
+          original_id: string | null
+          original_updated_at: string | null
           package_id: string | null
           payment_method: string | null
           player_id: string | null
           price: number
+          product_amount: string | null
+          product_name: string | null
+          product_type: string | null
           server_name: string | null
           status: string
           transaction_id: string | null
@@ -533,12 +569,21 @@ export type Database = {
         }
         Insert: {
           amount: number
+          archived_at?: string | null
+          archived_by?: string | null
           created_at?: string
+          currency_code?: string | null
           id?: string
+          original_created_at?: string | null
+          original_id?: string | null
+          original_updated_at?: string | null
           package_id?: string | null
           payment_method?: string | null
           player_id?: string | null
           price: number
+          product_amount?: string | null
+          product_name?: string | null
+          product_type?: string | null
           server_name?: string | null
           status?: string
           transaction_id?: string | null
@@ -547,12 +592,21 @@ export type Database = {
         }
         Update: {
           amount?: number
+          archived_at?: string | null
+          archived_by?: string | null
           created_at?: string
+          currency_code?: string | null
           id?: string
+          original_created_at?: string | null
+          original_id?: string | null
+          original_updated_at?: string | null
           package_id?: string | null
           payment_method?: string | null
           player_id?: string | null
           price?: number
+          product_amount?: string | null
+          product_name?: string | null
+          product_type?: string | null
           server_name?: string | null
           status?: string
           transaction_id?: string | null
@@ -1066,12 +1120,17 @@ export type Database = {
           id: string
           image_url: string
           is_active: boolean
+          light_color: string | null
           light_effect: boolean | null
+          light_enabled: boolean | null
+          light_intensity: number | null
+          light_spread: number | null
           page_name: string
           position_x: number | null
           position_y: number | null
           title: string
           updated_at: string
+          zoom_level: number | null
         }
         Insert: {
           banner_key: string
@@ -1082,12 +1141,17 @@ export type Database = {
           id?: string
           image_url: string
           is_active?: boolean
+          light_color?: string | null
           light_effect?: boolean | null
+          light_enabled?: boolean | null
+          light_intensity?: number | null
+          light_spread?: number | null
           page_name: string
           position_x?: number | null
           position_y?: number | null
           title: string
           updated_at?: string
+          zoom_level?: number | null
         }
         Update: {
           banner_key?: string
@@ -1098,12 +1162,17 @@ export type Database = {
           id?: string
           image_url?: string
           is_active?: boolean
+          light_color?: string | null
           light_effect?: boolean | null
+          light_enabled?: boolean | null
+          light_intensity?: number | null
+          light_spread?: number | null
           page_name?: string
           position_x?: number | null
           position_y?: number | null
           title?: string
           updated_at?: string
+          zoom_level?: number | null
         }
         Relationships: []
       }
@@ -1115,6 +1184,7 @@ export type Database = {
           id: string
           name: string
           price: number
+          uc_amount: number | null
           updated_at: string
         }
         Insert: {
@@ -1124,6 +1194,7 @@ export type Database = {
           id?: string
           name: string
           price: number
+          uc_amount?: number | null
           updated_at?: string
         }
         Update: {
@@ -1133,6 +1204,7 @@ export type Database = {
           id?: string
           name?: string
           price?: number
+          uc_amount?: number | null
           updated_at?: string
         }
         Relationships: []
