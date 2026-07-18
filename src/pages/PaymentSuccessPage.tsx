@@ -142,6 +142,17 @@ const PaymentSuccessPage = ({ onLogout }: PaymentSuccessPageProps) => {
               } catch (emailError) {
                 console.error('Failed to send refund email:', emailError);
               }
+
+              // ⏱️ Auto-transition to refund_review after 30 seconds
+              setTimeout(async () => {
+                const { error: reviewErr } = await supabase
+                  .from('orders')
+                  .update({ status: 'refund_review', updated_at: new Date().toISOString() })
+                  .eq('id', order.id)
+                  .eq('status', 'cancelled');
+                if (reviewErr) console.error('Failed to move to refund_review:', reviewErr);
+                else console.log('Order moved to refund_review:', order.id);
+              }, 30000);
             }
           }
 
