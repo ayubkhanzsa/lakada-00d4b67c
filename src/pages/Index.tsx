@@ -208,7 +208,7 @@ const Index = ({ onLogout, overrideCountry, linkQuery, gameBrand = 'PUBG', disab
   // Banners state - loaded from database
   const [mobileBanner, setMobileBanner] = useState<string | null>(null);
   const [mobileBannerStyle, setMobileBannerStyle] = useState<{ x: number; y: number; zoom: number }>({ x: 0, y: 0, zoom: 100 });
-  const [desktopBanner, setDesktopBanner] = useState<string | null>("/images/pubg-desktop-banner-new.jpeg");
+  const [desktopBanner, setDesktopBanner] = useState<string | null>(null);
   const [desktopBannerStyle, setDesktopBannerStyle] = useState<{ x: number; y: number; zoom: number }>({ x: 0, y: 0, zoom: 100 });
   const [charactersImage, setCharactersImage] = useState<string | null>(null);
   const [charactersStyle, setCharactersStyle] = useState<{ x: number; y: number; zoom: number }>({ x: 0, y: 0, zoom: 100 });
@@ -681,20 +681,17 @@ const Index = ({ onLogout, overrideCountry, linkQuery, gameBrand = 'PUBG', disab
         <Header onLogout={onLogout} />
       </div>
       
-      {/* Banner Section - Desktop Only */}
-      {!isMobile && desktopBanner && (
+      {/* Banner Section - Desktop Only - only when admin has uploaded */}
+      {!isMobile && bannersLoaded && desktopBanner && (
         <div className="relative w-full overflow-hidden">
           <img 
             src={desktopBanner}
-            alt="PUBG Desktop Banner"
-            width={1920}
-            height={500}
-            className="w-full h-auto object-cover"
+            alt={gameBrand === 'BGMI' ? "BGMI Desktop Banner" : "PUBG Mobile Desktop Banner"}
+            className="w-full h-auto block"
             loading="eager"
             fetchPriority="high"
             decoding="async"
             style={{
-              aspectRatio: '1920 / 500',
               transform: `translate(${desktopBannerStyle.x}px, ${desktopBannerStyle.y}px) scale(${desktopBannerStyle.zoom / 100})`,
               transformOrigin: 'center center'
             }}
