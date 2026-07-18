@@ -82,7 +82,7 @@ ABOUT MIDASBUY:
 
 CONTACT INFO (IMPORTANT - USE THESE EXACT NUMBERS):
 📱 WhatsApp: +44 7476 966269 (24/7 fastest support)
-📧 Email: help@midasbuy.com.co
+📧 Email: help@midasbuy.lombuy.com
 
 AVAILABLE GAMES & PRODUCTS:
 1. PUBG Mobile UC - Direct top-up to your account
