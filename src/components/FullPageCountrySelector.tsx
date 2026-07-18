@@ -4,6 +4,7 @@ import { X, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { getFlag } from "@/utils/countryFlags";
+import { FlagImg } from "@/components/FlagImg";
 import OptimizedImage from "./OptimizedImage";
 import { 
   SUPPORTED_LANGUAGES, 
@@ -235,9 +236,7 @@ const FullPageCountrySelector = ({
                                   : "bg-[#2a3248] border-2 border-transparent hover:border-gray-600"
                               )}
                             >
-                              <span className="text-xl md:text-2xl flex-shrink-0 select-none">
-                                {getFlag(country.code)}
-                              </span>
+                              <FlagImg code={country.code} name={country.name} className="w-7 h-5 md:w-8 md:h-6 flex-shrink-0" />
                               <span className="text-white text-xs md:text-sm font-medium truncate">
                                 {country.name}
                               </span>
