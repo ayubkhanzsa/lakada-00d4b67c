@@ -713,22 +713,20 @@ const Index = ({ onLogout, overrideCountry, linkQuery, gameBrand = 'PUBG', disab
           <div className="relative w-full">
             {/* Mobile Banner - show if uploaded from admin */}
             {mobileBanner && (
-              <div className={`w-full overflow-hidden relative ${gameBrand === 'BGMI' ? 'max-h-[130px]' : ''}`}>
+              <div className="w-full overflow-hidden relative">
                 <img 
                   src={mobileBanner}
                   alt={gameBrand === 'BGMI' ? "BGMI Banner" : "PUBG Mobile Banner"}
-                  width={750}
-                  height={400}
-                  className={`w-full h-auto object-cover ${gameBrand === 'BGMI' ? 'max-h-[130px]' : ''}`}
+                  className="w-full h-auto block"
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
                   style={{
-                    aspectRatio: gameBrand === 'BGMI' ? '750 / 260' : '750 / 400',
                     transform: `translate(${mobileBannerStyle.x}px, ${mobileBannerStyle.y}px) scale(${mobileBannerStyle.zoom / 100})`,
                     transformOrigin: 'center center'
                   }}
                 />
+
                 {/* Dynamic blue light effect covering entire banner - admin controlled */}
                 {lightEffect.enabled && (
                   <div 
