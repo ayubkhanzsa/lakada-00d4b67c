@@ -1082,8 +1082,53 @@ const MidasCheckoutModal: React.FC<MidasCheckoutModalProps> = ({
     } else if (selectedMethod === 'binance') {
       // Show Binance crypto payment section inline
       setShowCryptoPayment(true);
+    } else if (selectedMethod === 'test_admin') {
+      // Admin-only test gateway: create real order, redirect to thank-you like other gateways
+      (async () => {
+        try {
+          const { data: { user } } = await supabase.auth.getUser();
+          if (!user) {
+            toast({ title: 'Login required', description: 'Admin must be logged in.', variant: 'destructive' });
+            return;
+          }
+          const basketId = 'TEST-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+          const totalUC = selectedPackage.baseAmount + selectedPackage.bonusAmount;
+          const productAmount = `${selectedPackage.baseAmount}+${selectedPackage.bonusAmount}`;
+          const finalProductName = isShopProduct
+            ? shopProductTitle
+            : (isFreeFire ? `${productAmount} Diamonds`
+              : (isRoblox ? `${productAmount} Robux`
+                : (isValorant ? `${productAmount} VP`
+                  : `${productAmount} UC`)));
+
+          const { error: insertErr } = await supabase.from('orders').insert({
+            user_id: user.id,
+            price: selectedPackage.price,
+            currency_code: 'PKR',
+            player_id: userInfo?.id || '',
+            status: 'pending',
+            payment_method: 'test_admin',
+            transaction_id: basketId,
+            product_type: productType,
+            product_name: finalProductName,
+            product_code: String(selectedPackage.id),
+            product_amount: productAmount,
+          });
+          if (insertErr) {
+            console.error('Test gateway order insert failed:', insertErr);
+            toast({ title: 'Test order failed', description: insertErr.message, variant: 'destructive' });
+            return;
+          }
+          onOpenChange(false);
+          navigate(`/thank-you?transaction_id=${basketId}&method=test_admin`);
+        } catch (e: any) {
+          console.error('Test gateway error:', e);
+          toast({ title: 'Test gateway error', description: e?.message || 'Failed', variant: 'destructive' });
+        }
+      })();
     }
   };
+
 
   if (!selectedPackage) return null;
 
