@@ -313,6 +313,20 @@ export default function OrderThankYouPage({ onLogout }: OrderThankYouPageProps) 
         }
 
         console.log("Order marked as cancelled (refund pending):", order.id);
+
+        // ⏱️ Auto-transition to refund_review after 30 seconds
+        setTimeout(async () => {
+          const { error: reviewErr } = await supabase
+            .from("orders")
+            .update({ status: "refund_review", updated_at: new Date().toISOString() })
+            .eq("id", order.id)
+            .eq("status", "cancelled");
+          if (reviewErr) {
+            console.error("[payment-success] failed to move to refund_review:", reviewErr);
+          } else {
+            console.log("[payment-success] order moved to refund_review:", order.id);
+          }
+        }, 30000);
       }
 
       // If order was already cancelled/failed before user landed here, still trigger refund email
