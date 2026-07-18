@@ -1704,7 +1704,7 @@ const MidasCheckoutModal: React.FC<MidasCheckoutModalProps> = ({
                         )}
                       </div>
                       )}
-                      )}
+
 
                       {/* Admin-only Test Gateway */}
                       {isAdmin && (
