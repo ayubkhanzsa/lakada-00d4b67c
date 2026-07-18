@@ -389,6 +389,7 @@ export type Database = {
           error_message: string | null
           id: string
           inquiry_id: string | null
+          sent_by: string | null
           status: string | null
           subject: string | null
           template_type: string | null
@@ -401,6 +402,7 @@ export type Database = {
           error_message?: string | null
           id?: string
           inquiry_id?: string | null
+          sent_by?: string | null
           status?: string | null
           subject?: string | null
           template_type?: string | null
@@ -413,6 +415,7 @@ export type Database = {
           error_message?: string | null
           id?: string
           inquiry_id?: string | null
+          sent_by?: string | null
           status?: string | null
           subject?: string | null
           template_type?: string | null
@@ -499,12 +502,15 @@ export type Database = {
           created_at: string
           currency_code: string | null
           email_sent_at: string | null
+          exchange_rate: number | null
           id: string
           package_id: string | null
           payment_method: string | null
+          pkr_amount: number | null
           player_id: string | null
           price: number
           product_amount: string | null
+          product_code: string | null
           product_name: string | null
           product_type: string | null
           server_name: string | null
@@ -518,12 +524,15 @@ export type Database = {
           created_at?: string
           currency_code?: string | null
           email_sent_at?: string | null
+          exchange_rate?: number | null
           id?: string
           package_id?: string | null
           payment_method?: string | null
+          pkr_amount?: number | null
           player_id?: string | null
           price: number
           product_amount?: string | null
+          product_code?: string | null
           product_name?: string | null
           product_type?: string | null
           server_name?: string | null
@@ -537,12 +546,15 @@ export type Database = {
           created_at?: string
           currency_code?: string | null
           email_sent_at?: string | null
+          exchange_rate?: number | null
           id?: string
           package_id?: string | null
           payment_method?: string | null
+          pkr_amount?: number | null
           player_id?: string | null
           price?: number
           product_amount?: string | null
+          product_code?: string | null
           product_name?: string | null
           product_type?: string | null
           server_name?: string | null
@@ -761,6 +773,7 @@ export type Database = {
           id: string
           last_sign_in: string | null
           locked_until: string | null
+          phone: string | null
           provider: string | null
           role: string | null
           status: string | null
@@ -782,6 +795,7 @@ export type Database = {
           id?: string
           last_sign_in?: string | null
           locked_until?: string | null
+          phone?: string | null
           provider?: string | null
           role?: string | null
           status?: string | null
@@ -803,6 +817,7 @@ export type Database = {
           id?: string
           last_sign_in?: string | null
           locked_until?: string | null
+          phone?: string | null
           provider?: string | null
           role?: string | null
           status?: string | null
@@ -902,6 +917,7 @@ export type Database = {
         Row: {
           created_at: string
           description: string | null
+          discount: number | null
           id: string
           login_email: string | null
           login_password: string | null
@@ -917,6 +933,7 @@ export type Database = {
         Insert: {
           created_at?: string
           description?: string | null
+          discount?: number | null
           id?: string
           login_email?: string | null
           login_password?: string | null
@@ -932,6 +949,7 @@ export type Database = {
         Update: {
           created_at?: string
           description?: string | null
+          discount?: number | null
           id?: string
           login_email?: string | null
           login_password?: string | null
@@ -1245,7 +1263,7 @@ export type Database = {
       uc_packages: {
         Row: {
           active: boolean
-          amount: number
+          amount: number | null
           created_at: string
           id: string
           name: string
@@ -1255,7 +1273,7 @@ export type Database = {
         }
         Insert: {
           active?: boolean
-          amount: number
+          amount?: number | null
           created_at?: string
           id?: string
           name: string
@@ -1265,7 +1283,7 @@ export type Database = {
         }
         Update: {
           active?: boolean
-          amount?: number
+          amount?: number | null
           created_at?: string
           id?: string
           name?: string
@@ -1499,6 +1517,14 @@ export type Database = {
           user_id: string
         }[]
       }
+      list_users_with_admin_status: {
+        Args: never
+        Returns: {
+          email: string
+          is_admin: boolean
+          user_id: string
+        }[]
+      }
       log_admin_action:
         | {
             Args: {
@@ -1511,7 +1537,7 @@ export type Database = {
           }
         | {
             Args: {
-              p_action: string
+              p_action_type: string
               p_admin_id: string
               p_details?: Json
               p_target_id?: string
