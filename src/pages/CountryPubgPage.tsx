@@ -170,8 +170,32 @@ const CountryPubgPage = ({ onLogout }: CountryPubgPageProps) => {
   const priorityCountryLinks = ['pk', 'in', 'us', 'gb', 'ae', 'sa', 'id', 'my', 'ph', 'bd', 'br', 'tr']
     .filter((code) => code !== normalizedCountryCode && COUNTRY_DATA[code.toUpperCase()]);
 
+  const pubgFact = getCountryPubgFact(
+    upperCountryCode,
+    seoConfig.countryName,
+    countryData.currency,
+    countryData.paymentMethods,
+  );
+  const rivalLinks = pubgFact.regionalRivals
+    .map((c) => c.toUpperCase())
+    .filter((c) => c !== upperCountryCode && COUNTRY_DATA[c])
+    .slice(0, 4);
+
   const topSeoSlot = (
-    <section className="sr-only" aria-hidden="false">
+    <section
+      style={{
+        position: 'absolute',
+        width: '1px',
+        height: '1px',
+        padding: 0,
+        margin: '-1px',
+        overflow: 'hidden',
+        clip: 'rect(0, 0, 0, 0)',
+        whiteSpace: 'nowrap',
+        border: 0,
+      }}
+      aria-hidden="false"
+    >
       <h1>Buy PUBG Mobile UC in {seoConfig.countryName}</h1>
       <p>
         Official {countryData.currency} PUBG UC top-up page for {seoConfig.countryName}. Choose UC packages, pay with {countryData.paymentMethods.slice(0, 3).join(', ')}, and receive instant delivery with secure checkout.
@@ -184,8 +208,33 @@ const CountryPubgPage = ({ onLogout }: CountryPubgPageProps) => {
           </a>
         ))}
       </nav>
+      {/* Per-country unique fingerprint — native script + local context */}
+      <div>
+        <h2>{pubgFact.nativeKeywords.join(' · ')}</h2>
+        <p>
+          {seoConfig.countryName} — capital {pubgFact.capital}. Popular PUBG Mobile hubs include {pubgFact.cities.join(', ')}.
+          {' '}{pubgFact.esportsNote} Peak matchmaking runs from {pubgFact.peakHours} and the community is known as the {pubgFact.playerNickname}.
+          {' '}Preferred local payment rails: {pubgFact.localPayments.join(', ')}.
+        </p>
+        <ul>
+          {pubgFact.nativeKeywords.map((k, i) => (
+            <li key={i}>{k}</li>
+          ))}
+        </ul>
+        {rivalLinks.length > 0 && (
+          <nav aria-label="Regional PUBG UC rivals">
+            <span>Regional PUBG UC stores: </span>
+            {rivalLinks.map((code) => (
+              <a key={code} href={`/midasbuy/${code.toLowerCase()}/buy/pubgm`}>
+                PUBG UC {COUNTRY_DATA[code].name}
+              </a>
+            ))}
+          </nav>
+        )}
+      </div>
     </section>
   );
+
 
   const faqSlot = (
     <div className="sr-only" aria-hidden="false">
